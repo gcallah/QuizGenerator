@@ -6,8 +6,11 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
 
+    def get_choices(self):
+        return self.choices.all()
+
 class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
     choice_text = models.CharField(max_length=200)
     is_answer = models.BooleanField(default=False)
 
