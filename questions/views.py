@@ -6,9 +6,10 @@ from questions.models import Question
 def index(request):
     return render(request, 'index.html')
 
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
 def random_question(request):
     q = Question.objects.get(pk=1)
     return HttpResponse("random question: ", q.question_text)
 
-def create(new_question):
-    pass
