@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.base import Model
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
@@ -16,3 +18,10 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+class Module(models.Model):
+    questions = models.ManyToManyField(Question)
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
