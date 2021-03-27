@@ -11,6 +11,9 @@ class Question(models.Model):
     def get_choices(self):
         return self.choices.all()
 
+    def edit():
+        pass
+
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
     choice_text = models.CharField(max_length=200)
@@ -25,11 +28,18 @@ class Module(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def edit(self):
+        pass
 
 class Course(models.Model):
     title = models.TextField()
     num_of_modules = models.IntegerField()
     semester = models.CharField(max_length=16)
 
-    def _str__(self):
+    def __str__(self):
         return self.title
+
+    def edit(self):
+        pass
+
