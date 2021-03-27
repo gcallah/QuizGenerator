@@ -11,7 +11,7 @@ class Question(models.Model):
     def get_choices(self):
         return self.choices.all()
 
-    def edit():
+    def edit(self):
         pass
 
 class Choice(models.Model):
