@@ -24,8 +24,10 @@ class Choice(models.Model):
 
 class Course(models.Model):
     title = models.TextField()
-    num_of_modules = models.IntegerField(default=0)
     semester = models.CharField(max_length=16)
+
+    def num_of_modules(self):
+        return self.modules.count()
 
     def __str__(self):
         return self.title
