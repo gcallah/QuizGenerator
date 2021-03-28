@@ -22,19 +22,9 @@ class Choice(models.Model):
     def __str__(self):
         return self.choice_text
 
-class Module(models.Model):
-    questions = models.ManyToManyField(Question)
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-    
-    def edit(self):
-        pass
-
 class Course(models.Model):
     title = models.TextField()
-    num_of_modules = models.IntegerField()
+    num_of_modules = models.IntegerField(default=0)
     semester = models.CharField(max_length=16)
 
     def __str__(self):
@@ -43,3 +33,13 @@ class Course(models.Model):
     def edit(self):
         pass
 
+class Module(models.Model):
+    questions = models.ManyToManyField(Question)
+    name = models.CharField(max_length=200)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='modules', default='')
+
+    def __str__(self):
+        return self.name
+    
+    def edit(self):
+        pass
