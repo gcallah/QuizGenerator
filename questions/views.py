@@ -1,13 +1,33 @@
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import HttpResponse
-from questions.models import Question
+from questions.models import Course, Question
+from .forms import courseForm
 
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
 
-def dashboard(request):
-    return render(request, 'dashboard.html')
+def courses(request):
+    if request.method == 'POST':
+        form = courseForm(request.POST)
+        if form.is_valid():
+            course_title = form.cleaned_data['course_title']
+            course_semester = form.cleaned_data['course_semester']
+            course_year = form.cleaned_data['course_year']
+            semester = course_semester[3:] + str(course_year)[2:]
+            c = Course.objects.create(title=course_title, semester=semester)
+            c.save()
+        
+        return HttpResponseRedirect('/courses')
+
+    else:
+        form = courseForm()
+        context = {
+            'courses': Course.objects.all(),
+            'form' : form
+        }
+        return render(request, 'courses.html', context)
 
 #def add_question(request):
     #Question.objects.create(question_text=request.POST.get('question_text'))
