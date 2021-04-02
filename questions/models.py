@@ -45,4 +45,6 @@ class Module(models.Model):
         return self.name
     
     def edit(self):
-        pass
+        questions = models.ManyToManyField(Question)
+        name = models.CharField(max_length = 200)
+        course = models.ForeignKey(Course, on_delete = models.CASCADE, related_name = 'modules', default = '')
