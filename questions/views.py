@@ -1,6 +1,10 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from questions.models import Course, Question
 from .forms import courseForm
 
@@ -36,3 +40,13 @@ def random_question(request):
     q = Question.objects.get(pk=1)
     return HttpResponse("random question: ", q.question_text)
 
+def register(request):
+    context = {}
+    form = UserCreationForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            user = form.save()
+            login(request,user)
+            return HttpResponseRedirect('/courses')
+    context['form']=form
+    return render(request,'register.html',context)
