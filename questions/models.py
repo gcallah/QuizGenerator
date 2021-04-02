@@ -12,7 +12,7 @@ class Question(models.Model):
         return self.choices.all()
 
     def edit(self):
-        pass
+        question_text = models.CharField(max_length = 200)
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
@@ -33,7 +33,8 @@ class Course(models.Model):
         return self.title
 
     def edit(self):
-        pass
+        title = models.TextField()
+        semester = models.CharField(max_length = 16)
 
 class Module(models.Model):
     questions = models.ManyToManyField(Question)
