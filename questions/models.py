@@ -59,7 +59,9 @@ class Quiz(models.Model):
         return self.name
     
     def get_questions(self):
+        #Figure out how to take in a random number of questions
         return self.questions.all()
+        
 
     def num_of_questions(self):
         return self.questions.count()
