@@ -48,3 +48,19 @@ class Module(models.Model):
         questions = models.ManyToManyField(Question)
         name = models.CharField(max_length = 200)
         course = models.ForeignKey(Course, on_delete = models.CASCADE, related_name = 'modules', default = '')
+
+class Quiz(models.Model):
+    questions = models.ManyToManyField(Question)
+    name = models.CharField(max_length = 200)
+    module = models.ForeignKey(Module, on_delete = models.CASCADE, related_name = 'quizzes', default = '')
+    course = models.ForeignKey(Course, on_delete = models.CASCADE, related_name = 'quizzes', default = '')
+
+    def __str__(self):
+        return self.name
+    
+    def get_questions(self):
+        return self.questions.all()
+
+    def num_of_questions(self):
+        return self.questions.count()
+
