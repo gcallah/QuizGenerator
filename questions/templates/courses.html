@@ -1,26 +1,23 @@
 <html>
-    <h1 style="text-align: center;">Your Courses</h1>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'questions/courses.css' %}">
+    <h1>Your Courses</h1>
     <br />
     <br />
-    {% for course in courses %}
-        <li>{{course.title}}</li>
-    {% endfor %}
-
+    <div id='courses'>
+        {% for course in courses %}
+        <div id=course-container>
+            <h2>{{course.title}} </h2>
+            <h3>modules: {{ course.num_of_modules }}</h3>
+        </div>
+        {% endfor %}
+    </div>
     <br />
     <form action="/courses" method="POST">
         {% csrf_token %}
         {{ form }}
-        <!--<label for="course_name">Course name</label>
-        <input type="text" id="course_name" name="course_name" placeholder="Course Name"><br/>
-        <label for="fall">fall</label>
-        <input type="radio" id="fall" name="semester" value="fall">
-        <label for="spring">spring</label>
-        <input type="radio" id="spring" name="semester" value="spring">
-        <input type="number" id="year" min="2000" max="2099" step="1" value="2021"><br/>-->
         <input type="submit" value="Add Course">
     </form>
     <br/>
     <br/>
-   <!-- <input type="text" placeholder="New Question">
-    <button>Add Question</button> -->
 </html>
