@@ -65,4 +65,11 @@ class Quiz(models.Model):
 
     def num_of_questions(self):
         return self.questions.count()
+    
+    def edit(self):
+        questions = models.ManyToManyField(Question)
+        name = models.CharField(max_length = 200)
+        module = models.ForeignKey(Module, on_delete = models.CASCADE, related_name = 'quizzes', default = '')
+        course = models.ForeignKey(Course, on_delete = models.CASCADE, related_name = 'quizzes', default = '')
+        
 
