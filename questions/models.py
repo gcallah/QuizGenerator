@@ -21,6 +21,11 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+    
+    def edit(self):
+        question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')
+        choice_text = models.CharField(max_length=200)
+        is_answer = models.BooleanField(default=False)
 
 class Course(models.Model):
     title = models.TextField()
