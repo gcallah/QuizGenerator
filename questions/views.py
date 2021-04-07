@@ -12,6 +12,7 @@ from .forms import courseForm
 def index(request):
     return render(request, 'index.html')
 
+@login_required
 def courses(request):
     if request.method == 'POST':
         form = courseForm(request.POST)
@@ -49,4 +50,4 @@ def register(request):
             login(request,user)
             return HttpResponseRedirect('/courses')
     context['form']=form
-    return render(request,'register.html',context)
+    return render(request,'registration/register.html',context)
