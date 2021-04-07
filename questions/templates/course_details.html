@@ -1,0 +1,20 @@
+<html>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'questions/courses.css' %}">
+    <h1>modules</h1>
+    <br />
+    <br />
+    <div id='courses'>
+        {% for module in modules %}
+        <div id=course-container>
+            <h2>{{module.name}} </h2>
+
+            {% for question in module.questions.all %}
+                <p>{{question.question_text}}</p>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+    <br />
+    <br/>
+</html>

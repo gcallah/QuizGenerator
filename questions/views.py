@@ -34,6 +34,13 @@ def courses(request):
         }
         return render(request, 'courses.html', context)
 
+def course_details(request, course_id):
+    course = Course.objects.get(pk= course_id)
+    context = {
+        'modules' : course.modules.all()
+    }
+    return render(request, 'course_details.html', context)
+
 #def add_question(request):
     #Question.objects.create(question_text=request.POST.get('question_text'))
 
