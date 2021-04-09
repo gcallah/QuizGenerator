@@ -4,9 +4,9 @@
     <h1>modules</h1>
     <br />
     <br />
-    <div id='courses'>
+    <div class='models'>
         {% for module in modules %}
-        <div id=course-container>
+        <div class='model-container'>
             <h2>{{module.name}} </h2>
 
             {% for question in module.questions.all %}
@@ -14,7 +14,11 @@
             {% endfor %}
         </div>
         {% endfor %}
+        <button class="new-model">
+            <span>+</span>
+        </button>
     </div>
+    
     <br />
     <br/>
 </html>

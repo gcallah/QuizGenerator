@@ -4,9 +4,9 @@
     <h1>Your Courses</h1>
     <br />
     <br />
-    <div id='courses'>
+    <div class='models'>
         {% for course in courses %}
-        <div id=course-container>
+        <div class='model-container'>
             <h2><a href="courses/{{ course.pk }}">{{course.title}} </a></h2>
             <h3>modules: {{ course.num_of_modules }}</h3>
         </div>
