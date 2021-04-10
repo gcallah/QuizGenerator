@@ -41,6 +41,10 @@ def course_details(request, course_id):
     }
     return render(request, 'course_details.html', context)
 
+def module(request):
+    module = Module.objects.get(pk = module_id)
+    return render(request, 'module.html', context)
+
 #def add_question(request):
     #Question.objects.create(question_text=request.POST.get('question_text'))
 
