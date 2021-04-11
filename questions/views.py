@@ -9,11 +9,11 @@ from questions.models import Course, Question
 from .forms import courseForm
 
 # Create your views here.
-def index(request):
+def index(request): #Generates the index page
     return render(request, 'index.html')
 
 @login_required
-def courses(request):
+def courses(request): #Allows users to add / change a course, also generates the courses page
     if request.method == 'POST':
         form = courseForm(request.POST)
         if form.is_valid():
@@ -34,14 +34,14 @@ def courses(request):
         }
         return render(request, 'courses.html', context)
 
-def course_details(request, course_id):
+def course_details(request, course_id): #generates the course details page
     course = Course.objects.get(pk= course_id)
     context = {
         'modules' : course.modules.all()
     }
     return render(request, 'course_details.html', context)
 
-def module(request):
+def module(request):  # generates the module page
     module = Module.objects.get(pk = module_id)
     return render(request, 'module.html', context)
 
@@ -52,7 +52,7 @@ def random_question(request):
     q = Question.objects.get(pk=1)
     return HttpResponse("random question: ", q.question_text)
 
-def register(request):
+def register(request): #allows the user to register into the site (if the username doesn't exist),  also generates the registration page
     context = {}
     form = UserCreationForm(request.POST or None)
     if request.method == "POST":
