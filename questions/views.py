@@ -62,3 +62,6 @@ def register(request):
             return HttpResponseRedirect('/courses')
     context['form']=form
     return render(request,'registration/register.html',context)
+
+def login(request): #login function
+    pass
