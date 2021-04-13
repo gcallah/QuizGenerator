@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from questions.models import Course, Module, Question
-from .forms import ModuleForm, courseForm
+from .forms import ModuleForm, CourseForm
 
 # Create your views here.
 def index(request): #Generates the index page
@@ -15,19 +15,19 @@ def index(request): #Generates the index page
 @login_required
 def courses(request): #Allows users to add / change a course, also generates the courses page
     if request.method == 'POST':
-        form = courseForm(request.POST)
+        form = CourseForm(request.POST)
         if form.is_valid():
             course_title = form.cleaned_data['course_title']
             course_semester = form.cleaned_data['course_semester']
             course_year = form.cleaned_data['course_year']
-            semester = course_semester[3:] + str(course_year)[2:]
+            semester = course_semester + str(course_year)
             c = Course.objects.create(title=course_title, semester=semester)
             c.save()
         
         return HttpResponseRedirect('/courses')
 
     else:
-        form = courseForm()
+        form = CourseForm()
         context = {
             'courses': Course.objects.all(),
             'form' : form

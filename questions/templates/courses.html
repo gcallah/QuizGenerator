@@ -8,7 +8,8 @@
         {% for course in courses %}
         <div class='model-container'>
             <h2><a href="courses/{{ course.pk }}">{{course.title}} </a></h2>
-            <h3>modules: {{ course.num_of_modules }}</h3>
+            <h3> {{course.semester}} </h3>
+            <h3>Modules: {{ course.num_of_modules }} </h3>
         </div>
         {% endfor %}
     </div>
