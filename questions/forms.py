@@ -9,3 +9,4 @@ class courseForm(forms.Form):
 
 class ModuleForm(forms.Form):
     module_name = forms.CharField(label = 'Module Name', max_length = 100)
+    course_id = forms.IntegerField(lable = 'courseId', widget=forms.HiddenInput)

@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from questions.models import Course, Question
-from .forms import courseForm
+from questions.models import Course, Module, Question
+from .forms import ModuleForm, courseForm
 
 # Create your views here.
 def index(request): #Generates the index page
@@ -41,9 +41,16 @@ def course_details(request, course_id): #generates the course details page
     }
     return render(request, 'course_details.html', context)
 
-def module(request):  # generates the module page
-    module = Module.objects.get(pk = module_id)
-    return render(request, 'module.html', context)
+def modules(request):  # creates a module
+    if request.method == 'POST':
+        form = ModuleForm(request.POST)
+        if form.is_valid():
+            module_name = form.cleaned_data['module_name']
+            course_id = form.cleaned_data['course_id']
+            c = Course.objects.get(pk=course_id)
+            m = Module.objects.create(name=module_name, course=c)
+            m.save()
+        return HttpResponseRedirect(f'/courses/{course_id}/')
 
 #def add_question(request):
     #Question.objects.create(question_text=request.POST.get('question_text'))

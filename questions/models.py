@@ -60,7 +60,7 @@ class Quiz(models.Model): #Creates a quiz for courses.
     module = models.ForeignKey(Module, on_delete = models.CASCADE, related_name = 'quizzes', default = '')
     course = models.ForeignKey(Course, on_delete = models.CASCADE, related_name = 'quizzes', default = '')
 
-    def __str__(s.lf):
+    def __str__(self):
         return self.name
     
     def get_questions(self):
