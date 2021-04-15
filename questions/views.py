@@ -20,7 +20,7 @@ def courses(request): #Allows users to add / change a course, also generates the
             course_title = form.cleaned_data['course_title']
             course_semester = form.cleaned_data['course_semester']
             course_year = form.cleaned_data['course_year']
-            semester = course_semester + str(course_year)
+            semester = course_semester + " " + str(course_year)
             c = Course.objects.create(title=course_title, semester=semester)
             c.save()
         
@@ -72,3 +72,9 @@ def register(request): #allows the user to register into the site (if the userna
 
 def login(request): #login function
     pass
+
+def delete_course(request, course_id):
+    course = Course.objects.get(pk=course_id)
+    course.delete()
+
+    return HttpResponseRedirect('/courses')

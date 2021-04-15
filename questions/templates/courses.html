@@ -10,6 +10,7 @@
             <h2><a href="courses/{{ course.pk }}">{{course.title}} </a></h2>
             <h3> {{course.semester}} </h3>
             <h3>Modules: {{ course.num_of_modules }} </h3>
+            <p><a href="delete_course/{{ course.pk }}">Delete Course</a></p>
         </div>
         {% endfor %}
     </div>
