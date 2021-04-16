@@ -1,5 +1,6 @@
 from django import forms
-import datetime
+from django.forms.widgets import Widget
+from .models import Question
 
 class CourseForm(forms.Form):
     course_title = forms.CharField(label='Course Name', max_length=100)
@@ -9,4 +10,4 @@ class CourseForm(forms.Form):
 
 class ModuleForm(forms.Form):
     module_name = forms.CharField(label = 'Module Name', max_length = 100)
-    course_id = forms.IntegerField(label = 'courseId', widget=forms.HiddenInput)
+    questions = forms.ModelMultipleChoiceField(queryset=Question.objects.all(), widget=forms.CheckboxSelectMultiple)

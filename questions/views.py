@@ -37,20 +37,28 @@ def courses(request): #Allows users to add / change a course, also generates the
 def course_details(request, course_id): #generates the course details page
     course = Course.objects.get(pk= course_id)
     context = {
+        'course_id': course.pk,
         'modules' : course.modules.all()
     }
     return render(request, 'course_details.html', context)
 
-def modules(request):  # creates a module
+def create_module(request, course_id):  # creates a module
     if request.method == 'POST':
         form = ModuleForm(request.POST)
         if form.is_valid():
-            module_name = form.cleaned_data['module_name']
-            course_id = form.cleaned_data['course_id']
+            name = form.cleaned_data['module_name']
+            q = form.cleaned_data['questions']
             c = Course.objects.get(pk=course_id)
-            m = Module.objects.create(name=module_name, course=c)
+            m = Module.objects.create(name=name, course=c)
+            m.questions.set(q)
             m.save()
         return HttpResponseRedirect(f'/courses/{course_id}/')
+    form = ModuleForm()
+    context = {
+        'form': form,
+        'course_id': course_id
+    }
+    return render(request, 'create_module.html', context)
 
 #def add_question(request):
     #Question.objects.create(question_text=request.POST.get('question_text'))
