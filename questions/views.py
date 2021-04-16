@@ -78,3 +78,9 @@ def delete_course(request, course_id):
     course.delete()
 
     return HttpResponseRedirect('/courses')
+
+def delete_module(request, module_id):
+    module = Module.objects.get(pk = module_id)
+    module.delete()
+
+    return HttpResponseRedirect('/courses/{course_id}/')
