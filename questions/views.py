@@ -79,7 +79,9 @@ def register(request): #allows the user to register into the site (if the userna
     return render(request,'registration/register.html',context)
 
 def login(request): #login function
-    pass
+    #if login info is already registered, login is valid 
+    
+    return HttpResponseRedirect('/login')
 
 def delete_course(request, course_id):
     course = Course.objects.get(pk=course_id)
