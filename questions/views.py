@@ -63,7 +63,7 @@ def create_module(request, course_id):  # creates a module
 #def add_question(request):
     #Question.objects.create(question_text=request.POST.get('question_text'))
 
-def random_question(request): #generates rendom questions
+def random_question(request): #function to generate random questions
     q = Question.objects.get(pk=1)
     return HttpResponse("random question: ", q.question_text)
 
