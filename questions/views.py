@@ -80,6 +80,18 @@ def register(request): #allows the user to register into the site (if the userna
 
 def login(request): #login function
     #if login info is already registered, login is valid 
+    '''
+    context = {}
+    form = UserCreationForm(request.POST or None)
+    if request.method == "POST":
+        if form.is_valid():
+            user = form.save()
+            login(request,user)
+            return HttpResponseRedirect('/courses')
+    context['form']=form
+    return render(request,'registration/register.html',context)
+    
+    '''
     
     return HttpResponseRedirect('/login')
 
