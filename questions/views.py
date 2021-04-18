@@ -81,6 +81,7 @@ def register(request): #allows the user to register into the site (if the userna
 def login(request): #login function
     #if login info is already registered, login is valid 
     '''
+    #need to check if the username and password match what is in the database
     context = {}
     form = UserCreationForm(request.POST or None)
     if request.method == "POST":
