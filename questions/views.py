@@ -63,7 +63,7 @@ def create_module(request, course_id):  # creates a module
 #def add_question(request):
     #Question.objects.create(question_text=request.POST.get('question_text'))
 
-def random_question(request):
+def random_question(request): #generates rendom questions
     q = Question.objects.get(pk=1)
     return HttpResponse("random question: ", q.question_text)
 
@@ -83,13 +83,13 @@ def login(request): #login function
     
     return HttpResponseRedirect('/login')
 
-def delete_course(request, course_id):
+def delete_course(request, course_id): #function to delete a course if necessary
     course = Course.objects.get(pk=course_id)
     course.delete()
 
     return HttpResponseRedirect('/courses')
 
-def delete_module(request, module_id):
+def delete_module(request, module_id): #function to delete a module if necessary
     module = Module.objects.get(pk = module_id)
     module.delete()
 
