@@ -10,6 +10,8 @@ from .forms import ModuleForm, CourseForm
 
 # Create your views here.
 def index(request): #Generates the index page
+    if request.user.is_authenticated :
+        return HttpResponseRedirect('/courses')
     return render(request, 'index.html')
 
 @login_required
@@ -73,7 +75,7 @@ def register(request): #allows the user to register into the site (if the userna
     if request.method == "POST":
         if form.is_valid():
             user = form.save()
-            login(request,user)
+            login(user)
             return HttpResponseRedirect('/courses')
     context['form']=form
     return render(request,'registration/register.html',context)
