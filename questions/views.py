@@ -1,3 +1,4 @@
+from django.db.models import fields
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -5,8 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from questions.models import Course, Module, Question
-from .forms import ModuleForm, CourseForm
+from django.forms import inlineformset_factory
+from questions.models import Choice, Course, Module, Question
+from .forms import ModuleForm, CourseForm, QuestionForm
 
 # Create your views here.
 def index(request): #Generates the index page
@@ -62,12 +64,14 @@ def create_module(request, course_id):  # creates a module
     }
     return render(request, 'create_module.html', context)
 
-#def add_question(request):
+def create_question(request): #creates a question
     #Question.objects.create(question_text=request.POST.get('question_text'))
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponse(200)
+    QuestionFormSet = inlineformset_factory(Question, Choice, fields=('choice_text', 'is_answer'), extra=4)
+    return render(request, 'add_question.html', {'question_form': QuestionForm, 'choices_form': QuestionFormSet})
 
-def random_question(request): #function to generate random questions
-    q = Question.objects.get(pk=1)
-    return HttpResponse("random question: ", q.question_text)
 
 def register(request): #allows the user to register into the site (if the username doesn't exist),  also generates the registration page
     context = {}
