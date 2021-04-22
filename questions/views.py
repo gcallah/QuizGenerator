@@ -122,6 +122,25 @@ def edit_course(request, course_id): # Edit course info
         }
         return render(request, 'edit_course.html', context)
 
+def edit_module(request, module_id): #edit module info
+    module = Module.objects.get(pk = module_id)
+    if request.method == 'POST':
+        form = ModuleForm(request.POST)
+        if form.isValid():
+            name = form.cleaned_data['module_name']
+            q = form.cleaned_data['questions']
+            module.update_name(name)
+            module.questions.set(q)
+            module.save()
+        return HttpResponseRedirect('/create_module')
+    else:
+        form = ModuleForm()
+        context = {
+                'form': form,
+                'course_id': course_id
+                }
+        return render(request, 'create_module.html', context)
+
 def delete_course(request, course_id): #function to delete a course if necessary
     course = Course.objects.get(pk=course_id)
     course.delete()
