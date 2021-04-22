@@ -14,7 +14,7 @@ def index(request): #Generates the index page
         return HttpResponseRedirect('/courses')
     return render(request, 'index.html')
 
-@login_required
+#@login_required
 def courses(request): #Allows users to add / change a course, also generates the courses page
     if request.method == 'POST':
         form = CourseForm(request.POST)
@@ -97,6 +97,30 @@ def login(request): #login function
     '''
     
     return HttpResponseRedirect('/login')
+
+def edit_course(request, course_id): # Edit course info
+    course = Course.objects.get(pk=course_id)
+    if request.method == 'POST':
+        form = CourseForm(request.POST)
+        if form.is_valid():
+            course_title = form.cleaned_data['course_title']
+            course_semester = form.cleaned_data['course_semester']
+            course_year = form.cleaned_data['course_year']
+            semester = course_semester + " " + str(course_year)
+            course.update_title(course_title)
+            course.update_semester(semester)
+            course.save()
+
+        return HttpResponseRedirect('/courses')
+
+    else:
+        form = CourseForm()
+        context = {
+            'course': course,
+            'course_id': course_id,
+            'form' : form
+        }
+        return render(request, 'edit_course.html', context)
 
 def delete_course(request, course_id): #function to delete a course if necessary
     course = Course.objects.get(pk=course_id)

@@ -1,0 +1,15 @@
+<html>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'questions/courses.css' %}">
+    <h1>{{ course.title }}</h1>
+    <br />
+    <br />
+    <br />
+    <form action="/courses/edit_course/{{ course_id }}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Edit Course">
+    </form>
+    <br/>
+    <br/>
+</html>

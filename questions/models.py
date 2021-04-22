@@ -41,6 +41,12 @@ class Course(models.Model): #Creates a course for use by a professor
         title = models.TextField()
         semester = models.CharField(max_length = 16)
 
+    def update_title(self, title):
+        self.title = title
+
+    def update_semester(self, semester):
+        self.semester = semester
+
 class Module(models.Model): #This creates a module for courses, can be tied to multiple courses and have multiple questions
     questions = models.ManyToManyField(Question)
     name = models.CharField(max_length=200)
