@@ -145,6 +145,14 @@ def edit_module(request, module_id): #edit module info
                 }
         return render(request, 'create_module.html', context)
 
+def edit_question(request, question_id): #edit question info
+    question = Question.objects.get(pk = question_id)
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponse(200)
+    QuestionFormSet = inlineformset_factory(Question, Choice, fields = ('choice_text', 'is_answer'), extra = 4)
+    return render(request, 'add_question.html', {'question_form':QuestionForm, 'choices_form':QuestionFormSet})
+
 def delete_course(request, course_id): #function to delete a course if necessary
     course = Course.objects.get(pk=course_id)
     course.delete()
@@ -156,3 +164,9 @@ def delete_module(request, module_id): #function to delete a module if necessary
     module.delete()
 
     return HttpResponseRedirect('/courses/{course_id}/')
+
+def delete_question(request, question_id): #function to delete a question if necessary
+    question = Question.objects.get(pk = question_id)
+    question.delete()
+
+    return HttpResponseRedirect('/create_module')
