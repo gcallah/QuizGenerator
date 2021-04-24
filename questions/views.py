@@ -115,7 +115,7 @@ def edit_course(request, course_id): # Edit course info
             course.update_semester(semester)
             course.save()
 
-        return HttpResponseRedirect('/courses')
+        return HttpResponseRedirect('/courses') #redirect to the courses page
 
     else:
         form = CourseForm()
@@ -124,7 +124,7 @@ def edit_course(request, course_id): # Edit course info
             'course_id': course_id,
             'form' : form
         }
-        return render(request, 'edit_course.html', context)
+        return render(request, 'edit_course.html', context) #return edit_module html page
 
 def edit_module(request, module_id): #edit module info
     module = Module.objects.get(pk = module_id)
@@ -136,14 +136,14 @@ def edit_module(request, module_id): #edit module info
             module.update_name(name)
             module.questions.set(q)
             module.save()
-        return HttpResponseRedirect('/create_module')
+        return HttpResponseRedirect('/create_module') #redirect to the create_module page
     else:
         form = ModuleForm()
         context = {
                 'form': form,
                 'course_id': course_id
                 }
-        return render(request, 'edit_module.html', context)
+        return render(request, 'edit_module.html', context) #return edit_module html page
 
 def edit_question(request, question_id): #edit question info
     question = Question.objects.get(pk = question_id)
@@ -151,22 +151,22 @@ def edit_question(request, question_id): #edit question info
         print(request.POST)
         return HttpResponse(200)
     QuestionFormSet = inlineformset_factory(Question, Choice, fields = ('choice_text', 'is_answer'), extra = 4)
-    return render(request, 'edit_question.html', {'question_form':QuestionForm, 'choices_form':QuestionFormSet})
+    return render(request, 'edit_question.html', {'question_form':QuestionForm, 'choices_form':QuestionFormSet}) #return edit_questions html page
 
 def delete_course(request, course_id): #function to delete a course if necessary
     course = Course.objects.get(pk=course_id)
     course.delete()
 
-    return HttpResponseRedirect('/courses')
+    return HttpResponseRedirect('/courses') #redirect to the courses page
 
 def delete_module(request, module_id): #function to delete a module if necessary
     module = Module.objects.get(pk = module_id)
     module.delete()
 
-    return HttpResponseRedirect('/courses/{course_id}/')
+    return HttpResponseRedirect('/courses/{course_id}/') #redirect to the courses page
 
 def delete_question(request, question_id): #function to delete a question if necessary
     question = Question.objects.get(pk = question_id)
     question.delete()
 
-    return HttpResponseRedirect('/create_module')
+    return HttpResponseRedirect('/create_module') #redirect to the create_module page
