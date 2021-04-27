@@ -69,8 +69,7 @@ def create_question(request): #creates a question
     if request.method == 'POST':
         print(request.POST)
         return HttpResponse(200)
-    QuestionFormSet = inlineformset_factory(Question, Choice, fields=('choice_text', 'is_answer'), extra=4)
-    return render(request, 'add_question.html', {'question_form': QuestionForm, 'choices_form': QuestionFormSet})
+    return render(request, 'add_question.html', {'question_form': QuestionForm})
 
 
 def register(request): #allows the user to register into the site (if the username doesn't exist),  also generates the registration page

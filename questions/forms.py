@@ -15,7 +15,7 @@ class ModuleForm(forms.Form):
 
 
 class QuestionForm(forms.Form):
-    question_text = forms.CharField(label='question text', max_length=100)
+    question_text = forms.CharField(label='Question text', max_length=100)
     
     
 class QuizForm(forms.Form):

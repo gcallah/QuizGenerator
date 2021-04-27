@@ -1,12 +1,39 @@
 <html>
     {% load static %}
     <h1>Create a question</h1>
+    <link rel="stylesheet" href="{% static 'questions/create_question.css' %}">
     <br />
     <form action="/create_question" method="POST">
         {% csrf_token %}
         {{ question_form }}
-
-        {{ choices_form }}
+        </br>
+        </br>
+        </br>
+        <table>
+            <tr>
+                <th> Choice Text </th>
+                <th> Answer </th>
+            </tr>
+            <tr>
+                <td><input type="text" name="choice1"></td>
+                <td><input type="checkbox" name="choice1-answer"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="choice2"></td>
+                <td><input type="checkbox" name="choice2-answer"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="choice3"></td>
+                <td><input type="checkbox" name="choice3-answer"></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="choice4"></td>
+                <td><input type="checkbox" name="choice4-answer"></td>
+            </tr>
+            
+        </table>
+        </br>
+        </br>
         <input type="submit" value="create">
     </form>
     <br/>
