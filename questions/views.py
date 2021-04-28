@@ -99,7 +99,7 @@ def login(request): #login function
                 messages.error(request, "Invalid username and/or password.")
         else:
             messages.error(request, "Invalid username and/or password.")
-    for = AuthenticationForm()
+    form = AuthenticationForm()
     return render(request = request,
                     template_name = "./login.html",
                     context = {"form": form})
