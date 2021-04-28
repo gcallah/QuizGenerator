@@ -8,8 +8,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from questions.models import Choice, Course, Module, Question
-from .forms import ModuleForm, CourseForm, QuestionForm
-from .forms import NewestUserForm
+from .forms import ModuleForm, CourseForm, QuestionForm, NewestUserForm
 
 
 # Create your views here.
@@ -102,10 +101,8 @@ def login(request): #login function
         else:
             messages.error(request, "Invalid username and/or password.")
     form = AuthenticationForm()
-    return render(request = request,
-                    template_name = "./login.html",
-                    context = {"form": form})
-
+    return render(request, 'registration/login.html', context = {"form": form})
+    
 def logout(request): #logout function
     log_out(request)
     messages.info(request, "Successfully logged out.")
