@@ -22,5 +22,17 @@ class QuizForm(forms.Form):
     quiz_title = forms.CharField(label = 'Quiz Name', max_length = 100)
 
 
+class NewestUserForm(UserCreationForm):
+    email = forms.EmailField(required=True)
 
+    class Top:
+        model = User
+        fields = ("username", "email", "p1", "p2") #p1 is password 1, p2 is password 2
+
+    def saveUser(self, commit=True):
+        user = super(NewestUserForm, self).saveUser(commit=False)
+        user.email = self.cleaned_data["email"]
+        if commit:
+            user.saveUser()
+        return user
 
