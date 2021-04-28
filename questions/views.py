@@ -3,7 +3,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
@@ -85,21 +85,29 @@ def register(request): #allows the user to register into the site (if the userna
 
 def login(request): #login function
     #if login info is already registered, login is valid 
-    '''
-    #need to check if the username and password match what is in the database
-    context = {}
-    form = UserCreationForm(request.POST or None)
-    if request.method == "POST":
+    if request.method == 'POST':
+        form = AuthenticationForm()
         if form.is_valid():
-            user = form.save()
-            login(request,user)
-            return HttpResponseRedirect('/courses')
-    context['form']=form
-    return render(request,'registration/register.html',context)
-    
-    '''
-    
-    return HttpResponseRedirect('/login')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username = username, password = password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"Logged in as {username}")
+                return redirect('/')
+            else:
+                messages.error(request, "Invalid username and/or password.")
+        else:
+            messages.error(request, "Invalid username and/or password.")
+    for = AuthenticationForm()
+    return render(request = request,
+                    template_name = "./login.html",
+                    context = {"form": form})
+
+def logout(request): #logout function
+    log_out(request)
+    messages.info(request, "Successfully logged out.")
+    return redirect("index.html")
 
 def edit_course(request, course_id): # Edit course info
     course = Course.objects.get(pk=course_id)
