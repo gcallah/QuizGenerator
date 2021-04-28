@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from questions.models import Choice, Course, Module, Question
 from .forms import ModuleForm, CourseForm, QuestionForm
+from .forms import NewestUserForm
+
 
 # Create your views here.
 def index(request): #Generates the index page
