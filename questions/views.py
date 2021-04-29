@@ -1,10 +1,11 @@
 from django.db.models import fields
 from django.http.response import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from questions.models import Choice, Course, Module, Question
@@ -103,10 +104,10 @@ def login(request): #login function
     form = AuthenticationForm()
     return render(request, 'registration/login.html', context = {"form": form})
     
-def logout(request): #logout function
-    log_out(request)
+def logout_request(request): #logout function
+    logout(request)
     messages.info(request, "Successfully logged out.")
-    return redirect("index.html")
+    return redirect("/")
 
 def edit_course(request, course_id): # Edit course info
     course = Course.objects.get(pk=course_id)

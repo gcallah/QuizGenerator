@@ -11,6 +11,6 @@ urlpatterns = [
     path('delete_course/<str:course_id>', views.delete_course, name="delete_course"),
     path('login', views.login, name = 'login'),
     path('register', views.register, name='register'),
-    path('logout', views.logout, name = 'logout'),
+    path('logout', views.logout_request, name = 'logout'),
     path('courses/<str:course_id>/create_module', views.create_module, name='create_module')
 ]
