@@ -69,7 +69,16 @@ def create_module(request, course_id):  # creates a module
 def create_question(request): #creates a question
     #Question.objects.create(question_text=request.POST.get('question_text'))
     if request.method == 'POST':
-        print(request.POST)
+        form = request.POST
+        question = form['question_text']
+        q = Question.objects.create(question_text=question)
+        q.save()
+        for i in range(4):
+            c_text = form['choice' + str(i)]
+            if c_text:
+                answer = form.__contains__('choice' + str(i) + '-answer')
+                c = Choice.objects.create(choice_text=c_text, is_answer=answer, question=q)
+                c.save()
         return HttpResponse(200)
     return render(request, 'add_question.html', {'question_form': QuestionForm})
 
