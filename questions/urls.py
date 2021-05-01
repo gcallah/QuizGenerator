@@ -9,8 +9,9 @@ urlpatterns = [
     path('courses/<str:course_id>/', views.course_details),
     path('courses/edit_course/<str:course_id>', views.edit_course, name='edit_course'),
     path('delete_course/<str:course_id>', views.delete_course, name="delete_course"),
-    path('login', views.login, name = 'login'),
+    path('login', views.login_request, name = 'login'),
     path('register', views.register, name='register'),
     path('logout', views.logout_request, name = 'logout'),
-    path('courses/<str:course_id>/create_module', views.create_module, name='create_module')
+    path('courses/<str:course_id>/create_module', views.create_module, name='create_module'),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]

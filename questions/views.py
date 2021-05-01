@@ -94,7 +94,7 @@ def register(request): #allows the user to register into the site (if the userna
     context['form']=form
     return render(request,'registration/register.html',context)
 
-def login(request): #login function
+def login_request(request): #login function
     #if login info is already registered, login is valid 
     if request.method == 'POST':
         form = AuthenticationForm()
