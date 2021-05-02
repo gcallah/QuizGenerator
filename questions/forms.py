@@ -25,7 +25,7 @@ class QuizForm(forms.Form):
 
 
 class NewestUserForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True) #accepting user email, useful in case passwords are forgotten
 
     class Top:
         model = User
