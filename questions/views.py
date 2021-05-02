@@ -80,7 +80,7 @@ def create_question(request): #creates a question
                 c = Choice.objects.create(choice_text=c_text, is_answer=answer, question=q)
                 c.save()
         return HttpResponse(200)
-    return render(request, 'add_question.html', {'question_form': QuestionForm})
+    return render(request, 'create_question.html', {'question_form': QuestionForm})
 
 
 def register(request): #allows the user to register into the site (if the username doesn't exist),  also generates the registration page
