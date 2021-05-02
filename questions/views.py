@@ -85,7 +85,7 @@ def create_question(request): #creates a question
 
 def register(request): #allows the user to register into the site (if the username doesn't exist),  also generates the registration page
     context = {}
-    form = NewestUserForm(request.POST or None)
+    form = NewestUserForm(request.POST or None) #UserCreationForm replaced with NewestUserForm
     if request.method == "POST":
         if form.is_valid():
             user = form.save()
