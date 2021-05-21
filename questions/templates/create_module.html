@@ -4,8 +4,13 @@
     <br />
     <form action="/courses/{{course_id}}/create_module" method="POST">
         {% csrf_token %}
+        
         {{ form }}
+        <a href="/create_question">add a question</a> <br>
+        <br>
         <input type="submit" value="create">
+
+        
     </form>
     <br/>
 </html>
